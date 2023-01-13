@@ -6,26 +6,6 @@ using namespace std;
 class RBAC{
 public:
 
-// void addAccess(string access_mode) {
-//     access_modes.insert(access_mode);
-// }
-
-// void addResourec(string resource) {
-//     resources.insert(resource);
-// }
-
-// void addRole(string role) {
-//     roles.insert(role);
-// }
-
-// void addUser(string user) {
-//     users.insert(user);
-// }
-
-// void addAccessOnResource(string access_mode, string resource) {
-//     access_on_resource[resource].insert(access_mode);
-// }
-
 void addAcessOnResourceToRole(string access_mode, string resource, string role) {
     access_on_resource_to_role[role][resource].insert(access_mode);
 }
@@ -37,29 +17,21 @@ void addRoleToUser(string role, string user) {
 bool checkAccess(string user, string resource, string access_mode) {
     auto role = user_role[user];
 
-    cout << "role: " << access_mode;
-
     if (role == "") return false;
 
     auto access_modes_for_resource = access_on_resource_to_role[role][resource];
 
-    cout << "set " << access_modes_for_resource.size();
-
     if (access_modes_for_resource.empty()) return false;
-
-    for (auto& o: access_modes_for_resource) cout << o << "\n";
 
     return access_modes_for_resource.count(access_mode);
 }
 
-// private:
-    // unordered_set<string> access_modes, roles, users, resources;
-    // unordered_map<string, set<string>> access_on_resource;
+private:
+    // maps a user to given role
     unordered_map<string, string> user_role;
 
-    // unordered_map<string, set<string>> access_on_resource;
+    // maps a given role to another map that maps a given resource to set of access modes
     unordered_map<string, map<string, set<string>>> access_on_resource_to_role;
-
 };
 
 int main() {
@@ -96,14 +68,11 @@ int main() {
 
             bool hasAccess = rbac.checkAccess(user, resource, access);
 
-            cout << rbac.user_role[user];
             if (hasAccess)
                 cout << "Yes\n";
             else
                 cout << "No\n";
         }
-
-        // cout << tokens[0] << ":" << tokens[1] << "sdf\n";
     }
 
     input_file.close();
