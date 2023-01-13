@@ -95,7 +95,6 @@ int main() {
             auto user = tokens[1], resource = tokens[2], access = tokens[3];
 
             bool hasAccess = rbac.checkAccess(user, resource, access);
-            cout << user << resource << access;
 
             cout << rbac.user_role[user];
             if (hasAccess)

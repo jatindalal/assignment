@@ -7,4 +7,4 @@ addRole ADMIN
 addAccessOnResourceToRole READ IMAGE ADMIN
 addUser ADMINUSER
 addRoleToUser ADMIN ADMINUSER
-checkAccess ADMINUSER IMAGE ADMIN
+checkAccess ADMINUSER IMAGE READ
